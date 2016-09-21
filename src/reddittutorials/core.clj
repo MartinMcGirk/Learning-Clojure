@@ -3,6 +3,8 @@
 
 ;; Easy challenge #1 (https://www.reddit.com/r/dailyprogrammer/comments/pih8x/easy_challenge_1/)
 
+;; Ask the user some questions, and replay the answers to them in a string
+
 (defn get-answer-for-question
   "Expects a question in the form of a string, and gets the user answer"
   [question]
@@ -23,6 +25,9 @@
                   " years old, and your username is " (last answers)))))
 
 ;; Easy challenge #2 (https://www.reddit.com/r/dailyprogrammer/comments/pjbj8/easy_challenge_2/)
+
+;; Build a calculator of some sort that could be of use to you in your daily
+;; life.
 
 ;;takes in seq of vectors with start work and left work and lunch values
 ;;and works out how may "billable" hours I spent or have left to spend at work
@@ -61,6 +66,8 @@
                                                            ["0800" "1700" 0.5]
                                                            ["0700" "1800" 1]])))
 ;; Easy challenge #3 (https://www.reddit.com/r/dailyprogrammer/comments/pkw2m/2112012_challenge_3_easy/)
+
+;; Create a program to encrypt or decrypt text using a caesar cypher
 
 ;;Generates a map of ASCII chars using their char numbers
 (def letters (map #(hash-map :letter  (str (char %))
@@ -115,3 +122,44 @@
     (decrypt
      (encrypt "This is my answer to easy challenge #3" key)
      key)))
+
+;; Easy challenge #4 (https://www.reddit.com/r/dailyprogrammer/comments/pm6oj/2122012_challenge_4_easy/)
+
+;; Create a random password generator that will create x passwords of y length
+
+(def get-rand-character
+  #(char (rand-nth (range 33 127))))
+
+(defn get-password
+  [length]
+  (clojure.string/join
+   (take length (repeatedly #(get-rand-character)))))
+
+(defn get-multiple-passwords
+  [number length]
+  (take number (repeatedly #(get-password length))))
+
+(defn easy-challenge-4
+  []
+  (get-multiple-passwords 10 15))
+
+;; Easy challenge #5 (https://www.reddit.com/r/dailyprogrammer/comments/pnhyn/2122012_challenge_5_easy/)
+
+;; Create a program that is password protected
+
+(defn get-credentials
+  []
+  (vector (get-answer-for-question "Username?")
+          (get-answer-for-question "Password?")))
+
+(defn run-program
+  []
+  (let [[username password] (get-credentials)]
+    (if (and (= username "a")
+             (= password "b"))
+      (println "Access Granted!")
+      (println "Access Denied!")))) 
+                        
+(defn easy-challenge-5
+  []
+  (run-program))
