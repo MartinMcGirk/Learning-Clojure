@@ -163,3 +163,46 @@
 (defn easy-challenge-5
   []
   (run-program))
+
+;; Easy challenge #7 (https://www.reddit.com/r/dailyprogrammer/comments/pr2xr/2152012_challenge_7_easy/)
+
+;; Write a morse code decrypter
+
+(def input-morse ".... . .-.. .-.. --- / -.. .- .. .-.. -.-- / .--. .-. --- --. .-. .- -- -- . .-. / --. --- --- -.. / .-.. ..- -.-. -.- / --- -. / - .... . / -.-. .... .- .-.. .-.. . -. --. . ... / - --- -.. .- -.--")
+
+(def morse-alphabet {"/" " ", ".-" "A", "-..." "B", "-.-." "C"
+                     "-.." "D", "." "E", "..-." "F", "--." "G"
+                     "...." "H", ".." "I", ".---" "J", "-.-" "K"
+                     ".-.." "L", "--" "M", "-." "N", "---" "O"
+                     ".--." "P", "--.-" "Q", ".-." "R", "..." "S"
+                     "-" "T", "..-" "U", "...-" "V", ".--" "W"
+                     "-..-" "X", "-.--" "Y", "--.." "Z"})
+
+(defn split-using-delimiter
+  [text delimiter]
+  (clojure.string/split text delimiter))
+
+(defn morse->string
+  [morse]
+  (clojure.string/join (map #(morse-alphabet %) (split-using-delimiter input-morse #" "))))
+
+(defn easy-challenge-7
+  []
+  (morse->string input-morse))
+
+;; Easy challenge #8 (https://www.reddit.com/r/dailyprogrammer/comments/pserp/2162012_challenge_8_easy/)
+
+;; Sing "99 bottles of beer on the wall" song
+
+(defn sing-song
+  [num]
+  (if (zero? num)
+    (println "END")
+    (let [nxt (dec num)]
+      (println (str num " bottles of beer on the wall, " num " bottles of beer... Take one down, pass it around, "
+                    nxt " bottles of beer on the wall"))
+      (recur nxt))))
+
+(defn easy-challenge-8
+  []
+  (sing-song 99))
